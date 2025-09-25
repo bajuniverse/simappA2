@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const Navigationbar = () => {
   const { user, logout } = useAuth();
@@ -9,13 +12,14 @@ const Navigationbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <nav className="bg-gray-800 shadow-lg">
       <div className="mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
               {user && (
@@ -72,7 +76,8 @@ const Navigationbar = () => {
               )}
             </div>
           </div>
-
+          
+          {/* appears when window size is sm */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -80,30 +85,40 @@ const Navigationbar = () => {
             >
               <span className="sr-only">Open main menu</span>
               <svg
-                className={`h-6 w-6 ${isOpen ? 'hidden' : 'block'}`}
+                className={`h-6 w-6 ${isOpen ? "hidden" : "block"}`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
               <svg
-                className={`h-6 w-6 ${isOpen ? 'block' : 'hidden'}`}
+                className={`h-6 w-6 ${isOpen ? "block" : "hidden"}`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
-          </div>
+          </div>  
         </div>
       </div>
 
       {/* Mobile menu */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
+      <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         <div className="space-y-1 px-2 pb-3 pt-2">
           {user && (
             <>
