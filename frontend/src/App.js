@@ -8,9 +8,6 @@ import ApplicationForm from './components/ApplicationForm';
 import ProtectedApplicationDetail from './components/ApplicationDetail';
 import Unauthorized from './pages/Unauthorized';
 
-// Importing the Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 function App() {
   return (
     <Router>
