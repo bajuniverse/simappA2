@@ -58,5 +58,5 @@ mentorSchema.pre('save', async function (next) {
 
 module.exports = { 
     User: mongoose.model('User', userSchema), 
-    Mentor: mongoose.model('Mentor', mentorSchema), UserRole 
+    Mentor: mongoose.model('Mentor', mentorSchema), UserRole, 
 };

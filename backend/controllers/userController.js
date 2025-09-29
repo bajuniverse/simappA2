@@ -18,24 +18,6 @@ const getUsers = async (req,res) => {
   }
 };
 
-const getUserById = async (req,res) => {
-  try {
-    const {id} = req.params;
-
-    if (req.user.role !== 'Admin' && req.user._id.toString() !==id) {
-      return res.status(403).json({message: 'Admin/Mentor Only Access'});
-    }
-
-    let user  = await Mentor.findById(id).select('-password');
-    if (!user) user = await User.findById(id).select('-password');
-
-    if (!user) return res.status(404).json({message:'User not Found'});
-    res.json(user);
-  } catch (e) {
-      return res.status(500).json({message: 'Server error'});
-    }
-  };
-
 
 const getProfile = async (req, res) => {
   try {
@@ -141,35 +123,4 @@ const updateUserProfile = async (req, res) => {
       }
     };
 
-const deleteUser = async (req,res) => {
-    try {
-        if(!req.user) return res.status(401).json({message: 'Unauthorized'});
-        if (req.user.role !== 'Admin') {
-            return res.status(403).json({message: 'Admin access only'});
-        }
-
-        const {id} = req.params;
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-          return res.status(400).json({message: 'Invalid id'});
-        }
-
-        const mentor = await Mentor.findById(id);
-        if (mentor) {
-            await Mentor.deleteOne({_id: id});
-            return res.status(200).json({_id: id, deleted: true, source: 'Mentor'});
-        }
-
-        const user = await User.findById(id);
-        if (!user) return res.status(404).json({message: 'User not found'});
-        if (user.role !== 'Mentor') {
-            return res.status(400).json({message: 'Not a mentor account'});
-        }
-
-        await User.deleteOne({_id: id});
-        return res.status(200).json({_id: id, deleted: true, source: 'User'});
-    } catch (err) {
-        return res.status(500).json({message: 'Server Error'});
-    }
-};
-
-module.exports = { updateUserProfile, getProfile, getUsers, getUserById, deleteUser,};
+module.exports = { updateUserProfile, getProfile, getUsers };

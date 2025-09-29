@@ -1,6 +1,6 @@
 // src/pages/Applications.jsx
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axiosInstance from '../../services/axiosConfig';
 import RequireAdmin from '../../components/RequireAdmin';
@@ -8,24 +8,20 @@ import RequireAdmin from '../../components/RequireAdmin';
 const Mentors = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [reload, setReload] = useState(0);
 //   const [statusFilter, setStatusFilter] = useState('All');
   
   // Fetch mentors
-    const fetchMentors = useCallback(async () => {
+  useEffect(() => {
+    const fetchMentors = async () => {
       try {
-        setLoading(true);
-        const {data} = await axiosInstance.get('/api/user', {
-          headers: { Authorization: `Bearer ${user?.token}` },
-          params: {role: 'Mentor', _ts: Date.now()},
+        const response = await axiosInstance.get('/api/user?role=Mentor', {
+          headers: { Authorization: `Bearer ${user?.token}` }
         });
-        setMentors(Array.isArray(data)? data : []);
-        setError(null);
+        setMentors(Array.isArray(response.data)? response.data : []);
 
         // const filteredMentor = list.filter(
         //     (u) => u?.role === 'Mentor' || u?.user?.role === 'Mentor'
@@ -38,48 +34,20 @@ const Mentors = () => {
       } finally{
         setLoading(false);        
       }
-    }, [user?.token]);
+    };
 
-  useEffect(()=>{
-    if (user?.token) fetchMentors();
-  }, [user?.token, reload, fetchMentors]);
-
-
-  useEffect(() => {
-    const updated = location.state?.updated;
-    if(updated){
-        const uid = (updated._id || updated.id)?.toString();
-
-        if(uid){
-            setMentors(prev => 
-                prev.map(m=> (m._id?.toString() === uid ? { ...m, ...updated} : m))
-            );
-        }
-        setReload(r=> r + 1);
-        navigate('/mentor', {replace:true, state: null});
-    }
-  }, [location.state, navigate]);
-
+    fetchMentors();
+  }, [user?.token]);
 
   //Update
-  const handleUpdate = (mentor) => {
-    navigate(`/mentor/update/${mentor._id}`, {state: {mentor}});
-  }
+  const handleUpdate = (id) => {
+    navigate(`/user/${id}/edit`);
+  };
 
   //Delete
   const handleDelete = async(id) => {
     const yes = window.confirm ('Delete this mentor? This cannot be undone.');
     if (!yes) return;
-
-    try {
-        await axiosInstance.delete(`/api/user/${id}`,{
-            headers: {Authorization:  `Bearer ${user?.token}`},
-        });
-
-        setMentors(prev => prev.filter(m=> m._id !== id));
-    } catch (e) {
-        alert(e?.response?.data?.message || 'Delete failed.');
-    }
   };
   
 //   // Handle view mentor list
@@ -133,18 +101,6 @@ const Mentors = () => {
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                 Last Name
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                Contact Number
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                Expertise
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                Affiliation
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                Address
-              </th>
               {/* <th className="px-4 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                 Program Applied
               </th>
@@ -169,7 +125,7 @@ const Mentors = () => {
               </tr>
             ) : (
               mentors.map((m) => (
-                <tr key={String(m._id)} className="hover:bg-gray-50">
+                <tr key={m._id} className="hover:bg-gray-50">
                   <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {m.code || m._id}
                   </td>
@@ -178,18 +134,6 @@ const Mentors = () => {
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {m.lastName || '-'}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {m.number || '-'}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {m.expertise || '-'}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {m.affiliation || m.affiliation || '-'}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {m.address || '-'}
                   </td>
                   {/* <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {program.(application.submissionDate)}
@@ -205,8 +149,8 @@ const Mentors = () => {
                   {/* </td> */}
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
-                      onClick={() => handleUpdate(m)}
-                      className="mr-3 text-indigo-600 hover:text-indigo-900 font-medium"
+                      onClick={() => handleUpdate(m._id)}
+                      className="text-indigo-600 hover:text-indigo-900 font-medium"
                     >
                       Update
                     </button>
