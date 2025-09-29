@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../constants/UserRole';
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ toggleSidebar }) => {
   const { user, logout, hasAnyRole, isAdmin, isMentor } = useAuth();
   const navigate = useNavigate();
 
