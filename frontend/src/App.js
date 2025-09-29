@@ -12,9 +12,11 @@ import ProtectedProfile from './pages/Profile/Profile';
 // Application feature
 import ApplicationsList from './pages/Application/ApplicationsList';
 import ApplicationDetail from './pages/Application/ApplicationDetail';
-import ApplicationEditForm from './pages/Application/ApplicationEditForm.jsx';
+import ApplicationEditForm from './pages/Application/ApplicationEditForm';
 import ApplicationForm from './pages/Application/ApplicationForm';
-// import ApplicationEditForm from './components/Application/ApplicationFormComponent';
+
+// Mentor feature
+import ProtectedMentors from './pages/Mentorship/Mentor';
 
 // Program feature
 import ProgramList from './pages/Program/ProgramList';
@@ -58,7 +60,6 @@ function App() {
                         path="/applications" 
                         element={ <ApplicationsList /> } 
                     />
-                    {/* Applications */}
                     <Route 
                         path="/applications/new" 
                         element={ <ApplicationForm /> } 
@@ -82,6 +83,14 @@ function App() {
                     />
 
                     {/* Profile */}
+                    <Route 
+                        path="/mentor" 
+                        element={
+                        <RequireRole allowedRoles={[UserRole.ADMIN]}>
+                            <ProtectedMentors />
+                        </RequireRole>
+                        } 
+                    />
                     <Route 
                         path="/profile" 
                         element={
