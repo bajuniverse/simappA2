@@ -132,6 +132,7 @@ const Register = () => {
                 value={formData.expertise}
                 onChange={(e) => setFormData({...formData, expertise: e.target.value})}
                 className="w-full mb-4 p-2 border rounded"
+                required
               />
               <input
                 type="text"
@@ -139,6 +140,7 @@ const Register = () => {
                 value={formData.affiliation}
                 onChange={(e) => setFormData({...formData, affiliation: e.target.value})}
                 className="w-full mb-4 p-2 border rounded"
+                required
               />
               <input
                 type="text"
@@ -146,6 +148,7 @@ const Register = () => {
                 value={formData.address}
                 onChange={(e) => setFormData({...formData, address: e.target.value})}
                 className="w-full mb-4 p-2 border rounded"
+                required
               />
           </>
         ) :(

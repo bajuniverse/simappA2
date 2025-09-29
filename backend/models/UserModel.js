@@ -7,8 +7,6 @@ const UserRole = {
     STARTUP: 'Startup',
 };
 
-
-//base
 const userSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
@@ -44,7 +42,7 @@ const mentorSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true },
         number: { type: String, required: true, unique: true },
         expertise: { type: String },
-        affiliation: { type: String },
+        affliation: { type: String },
         address: { type: String },
         password: { type: String, required: true }
     }, 
@@ -60,5 +58,5 @@ mentorSchema.pre('save', async function (next) {
 
 module.exports = { 
     User: mongoose.model('User', userSchema), 
-    Mentor: mongoose.model('Mentor', mentorSchema), UserRole, 
+    Mentor: mongoose.model('Mentor', mentorSchema), UserRole 
 };
