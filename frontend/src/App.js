@@ -7,7 +7,7 @@ import Layout from './components/layout/Layout';
 import Unauthorized from './pages/Unauthorized';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProtectedProfile from './pages/Profile/Profile';
+import Profile from './pages/Profile/Profile';
 
 // Application feature
 import ApplicationsList from './pages/Application/ApplicationsList';
@@ -81,7 +81,7 @@ function App() {
             path="/profile" 
             element={
               <RequireRole allowedRoles={[UserRole.ADMIN, UserRole.MENTOR, UserRole.STARTUP]}>
-                <ProtectedProfile />
+                <Profile />
               </RequireRole>
             } 
           />

@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const NavbarComponent = ({ toggleSidebar }) => {
-  const { user, logout, hasAnyRole, isAdmin, isMentor } = useAuth();
-  const navigate = useNavigate();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -22,8 +22,6 @@ const NavbarComponent = ({ toggleSidebar }) => {
             {user && (
               <>
                 <Nav.Link as={Link} to="/programs">Programs</Nav.Link>
-                <Nav.Link as={Link} to="/applications">Applications</Nav.Link>
-                <Nav.Link as={Link} to="/startup">Startup</Nav.Link>
                 <Nav.Link as={Link} to="/applications">Applications</Nav.Link>
                 <Nav.Link as={Link} to="/startup">Startup</Nav.Link>
                 <Nav.Link as={Link} to="/mentor">Mentorship</Nav.Link>
