@@ -18,6 +18,42 @@ const getUsers = async (req,res) => {
   }
 };
 
+const getUserById = async (req,res) => {
+  try {
+    const {id} = req.params;
+
+    if (req.user.role !== 'Admin' && req.user._id.toString() !==id) {
+      return res.status(403).json({message: 'Admin/Mentor Only Access'});
+    }
+
+    let user  = await Mentor.findById(id).select('-password');
+    if (!user) user = await User.findById(id).select('-password');
+
+    if (!user) return res.status(404).json({message:'User not Found'});
+    res.json(user);
+  } catch (e) {
+      return res.status(500).json({message: 'Server error'});
+    }
+  };
+
+const getUserById = async (req,res) => {
+  try {
+    const {id} = req.params;
+
+    if (req.user.role !== 'Admin' && req.user._id.toString() !==id) {
+      return res.status(403).json({message: 'Admin/Mentor Only Access'});
+    }
+
+    let user  = await Mentor.findById(id).select('-password');
+    if (!user) user = await User.findById(id).select('-password');
+
+    if (!user) return res.status(404).json({message:'User not Found'});
+    res.json(user);
+  } catch (e) {
+      return res.status(500).json({message: 'Server error'});
+    }
+  };
+
 
 const getProfile = async (req, res) => {
   try {
@@ -123,4 +159,4 @@ const updateUserProfile = async (req, res) => {
       }
     };
 
-module.exports = { updateUserProfile, getProfile, getUsers };
+module.exports = { updateUserProfile, getProfile, getUsers, getUserById };

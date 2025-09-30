@@ -42,7 +42,7 @@ const mentorSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true },
         number: { type: String, required: true, unique: true },
         expertise: { type: String },
-        affliation: { type: String },
+        affiliation: { type: String },
         address: { type: String },
         password: { type: String, required: true }
     }, 
