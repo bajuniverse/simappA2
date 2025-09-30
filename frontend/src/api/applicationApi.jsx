@@ -31,5 +31,11 @@ export function useApplicationApi() {
         return res.data;
     };
 
-    return { getApplications, getApplicationById, createApplication, updateApplicationStatus, deleteApplication };
+    return { 
+        getApplications, 
+        getApplicationById, 
+        createApplication, 
+        updateApplicationStatus, 
+        deleteApplication 
+    };
 }
