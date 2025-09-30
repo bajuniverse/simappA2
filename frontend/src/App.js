@@ -17,6 +17,7 @@ import ApplicationForm from './pages/Application/ApplicationForm';
 
 // Mentor feature
 import ProtectedMentors from './pages/Mentorship/Mentor';
+import ProtectedUpdateMentor from './pages/Mentorship/UpdateMentor';
 
 // Program feature
 import ProgramList from './pages/Program/ProgramList';
@@ -88,6 +89,14 @@ function App() {
                         element={
                         <RequireRole allowedRoles={[UserRole.ADMIN]}>
                             <ProtectedMentors />
+                        </RequireRole>
+                        } 
+                    />
+                    <Route 
+                        path="/mentor/update/:id" 
+                        element={
+                        <RequireRole allowedRoles={[UserRole.ADMIN, UserRole.MENTOR]}>
+                            <ProtectedUpdateMentor />
                         </RequireRole>
                         } 
                     />
