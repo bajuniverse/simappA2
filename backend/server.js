@@ -17,6 +17,7 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/programs', require('./routes/programRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/feedback', require('./routes/feedbackRoutes'));
+app.use('/api/availability', require('./routes/availabilityRoutes'));
 
 // Global error handler
 
