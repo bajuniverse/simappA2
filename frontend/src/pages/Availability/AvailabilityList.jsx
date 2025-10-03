@@ -34,7 +34,7 @@ function AvailabilityList() {
         <div className="p-4">
             <h2 className="mb-3">Availability</h2>
             <ErrorBanner message={error} onClose={() => setError("")} />
-            <Link to="/availabilitylist/new" className="btn btn-primary">New Availability</Link>
+            <Link to="/availability/new" className="btn btn-primary">New Availability</Link>
             <AvailabilityTable availability={availability} />
         </div>
     );

@@ -47,7 +47,7 @@ function AvailabilityTable({ availability, reload, loading }) {
                             </td>
                             <td>
                             <Link
-                                to={`/availabilitylist/${p.id}/edit`}
+                                to={`/availability/${p.id}/edit`}
                                 className="btn btn-sm btn-warning me-2"
                             >
                                 Edit

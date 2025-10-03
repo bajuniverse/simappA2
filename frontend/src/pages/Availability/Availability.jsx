@@ -39,7 +39,7 @@ function AvailabilityForm() {
             } else {
                 await createAvailability(form);
             }
-            navigate("/availabilitylist");
+            navigate("/availability");
         } catch (err) {
             if (err.response?.status === 401) {
                 setErrorMessages(["Unauthorized: please log in again."]);

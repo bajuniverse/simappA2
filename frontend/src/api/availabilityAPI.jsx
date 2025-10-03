@@ -1,7 +1,7 @@
 import axiosInstance from '../services/axiosConfig';
 import { useAuthHeaders } from './authHeaders';
 
-const API_URL = "/api/availabilitylist";
+const API_URL = "/api/availability";
 
 export function useAvailabilityApi() {
     const headers = useAuthHeaders();
