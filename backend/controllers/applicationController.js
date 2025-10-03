@@ -4,6 +4,7 @@ const ApplicationRepo = require('../repositories/ApplicationRepo');
 const ProgramRepo = require('../repositories/ProgramRepo');
 const { ApplicationStatus } = require('../models/ApplicationModel');
 const ApplicationFactory = require('../domain/factory/ApplicationFactory');
+const FeedbackDecorator = require("../domain/decorators/FeedbackDecorator");
 
 class ApplicationController {
     /** Create new application */
@@ -61,8 +62,7 @@ class ApplicationController {
             next(error);
         }
     }
-
-    /** Get applications by Program ID (with Role + Status strategies) */
+    
     async getByProgramId(req, res, next) {
         try {
             const programId = req.params.programId || req.params.id;
@@ -72,13 +72,10 @@ class ApplicationController {
                 return res.status(404).json({ message: "Program not found" });
             }
 
-            // 1. Pick role strategy
             const roleStrategy = ApplicationFactory.createRoleStrategy(req.user.role);
 
-            // 2. Pick status strategy (optional query ?status=Accepted)
             const statusStrategy = ApplicationFactory.createStatusStrategy(req.query.status);
 
-            // 3. Delegate to strategy
             const applications = await roleStrategy.getApplications(programId, req.user, program, statusStrategy);
 
             if (!applications || applications.length === 0) {

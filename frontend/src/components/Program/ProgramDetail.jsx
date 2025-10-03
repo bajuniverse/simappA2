@@ -35,9 +35,6 @@ const ProgramDetail = () => {
         ? normalize
         : normalize?.filter((app) => app.status === statusFilter);
 
-    
-    // Check is mentor is currently enrolled in program
-    // const isEnrolled = program?.mentors?.some((m) => m._id === user?._id) ?? false;
     const isEnrolled = true;
     return (
         <div className="p-6">

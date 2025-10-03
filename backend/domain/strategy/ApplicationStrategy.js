@@ -65,9 +65,3 @@ module.exports = {
     AcceptedStatusStrategy,
     RejectedStatusStrategy
 };
-
-module.exports = {
-    AdminApplicationStrategy,
-    MentorApplicationStrategy,
-    StartupApplicationStrategy
-};
