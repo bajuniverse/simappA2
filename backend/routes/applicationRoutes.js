@@ -20,4 +20,8 @@ router.put('/:id', protect, ApplicationController.update);
 router.patch('/:id/status', protect, ApplicationController.updateApplicationStatus);
 router.delete('/:id', protect, ApplicationController.delete);
 
+router.post('/:id/feedback', protect, roleProxy(UserRole.MENTOR));
+router.post('/:id/audit', protect, roleProxy(UserRole.ADMIN));
+
+
 module.exports = router;

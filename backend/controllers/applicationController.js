@@ -4,7 +4,6 @@ const ApplicationRepo = require('../repositories/ApplicationRepo');
 const ProgramRepo = require('../repositories/ProgramRepo');
 const { ApplicationStatus } = require('../models/ApplicationModel');
 const ApplicationFactory = require('../domain/factory/ApplicationFactory');
-const FeedbackDecorator = require("../domain/decorators/FeedbackDecorator");
 
 class ApplicationController {
     /** Create new application */
@@ -143,6 +142,50 @@ class ApplicationController {
                 return res.status(404).json({ message: "Application not found" });
             }
             res.json({ message: "Application deleted successfully" });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async addFeedback(req, res, next) {
+        try {
+            const { id } = req.params; // application ID
+            const { comment, rating } = req.body;
+
+            const application = await ApplicationRepo.findById(id);
+            if (!application) {
+                return res.status(404).json({ message: "Application not found" });
+            }
+
+            const decorated = new FeedbackDecorator(application);
+            decorated.addFeedback({
+                mentorId: req.user._id,
+                comment,
+                rating
+            });
+
+            const saved = await application.save();
+            res.json(saved);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async addAudit(req, res, next) {
+        try {
+            const { id } = req.params;
+            const { action } = req.body;
+
+            const application = await ApplicationRepo.findById(id);
+            if (!application) {
+                return res.status(404).json({ message: "Application not found" });
+            }
+
+            const decorated = new AuditDecorator(application);
+            decorated.addAuditLog(action, req.user._id);
+
+            const saved = await application.save();
+            res.json(saved);
         } catch (error) {
             next(error);
         }
