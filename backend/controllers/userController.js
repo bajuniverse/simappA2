@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const UserRepo = require('../repositories/UserRepo');
 const MentorRepo = require('../repositories/MentorRepo');
-const { UserRole } = require('../models/UserModel');
+const { UserRole, UserModel } = require('../models/UserModel');
 const UserFactory = require('../domain/factories/UserFactory');
 
 class UserController {   
@@ -211,4 +211,11 @@ const listStartups = async (req, res) => {
 };
 
 const ctrl = new UserController();
-module.exports = {UserController: ctrl, listStartups};
+module.exports = {
+    UserController: ctrl, 
+    listStartups,
+    getAllUsers : (...args) => ctrl.getAllUsers(...args),
+    getProfile : (...args) => ctrl.getProfile(...args),
+    updateUserProfile : (...args) => ctrl.updateUserProfile(...args),
+    getUserById : (...args) => ctrl.getUserById(...args)    
+};

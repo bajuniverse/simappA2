@@ -1,7 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const mongoose = require('mongoose');
-const userController = require('../controllers/userController');
+const UserController = require('../controllers/userController');
 const UserRepo = require('../repositories/UserRepo');
 const MentorRepo = require('../repositories/MentorRepo');
 const { UserRole } = require('../models/UserModel');
@@ -34,7 +34,7 @@ describe('UserController Tests', () => {
             sinon.stub(UserRepo, 'findAll').resolves(mockUsers);
             sinon.stub(UserFactory, 'createUser').callsFake(u => ({ id: u._id.toString(), ...u }));
 
-            await userController.getAllUsers(req, res);
+            await UserController.getAllUsers(req, res);
 
             expect(res.json.calledOnce).to.be.true;
             expect(res.json.firstCall.args[0]).to.be.an('array').with.length(2);
@@ -55,7 +55,7 @@ describe('UserController Tests', () => {
             sinon.stub(UserRepo, 'findById').resolves(fakeUser);
             sinon.stub(UserFactory, 'createUser').returns({ id: fakeUser._id.toString(), name: 'Charlie' });
 
-            await userController.getProfile(req, res);
+            await UserController.getProfile(req, res);
 
             expect(res.json.calledOnceWithMatch({ id: fakeUser._id.toString(), name: 'Charlie' })).to.be.true;
         });
@@ -66,7 +66,7 @@ describe('UserController Tests', () => {
             req.params.id = new mongoose.Types.ObjectId().toString();
             sinon.stub(UserRepo, 'findById').resolves(null);
 
-            await userController.getUserById(req, res);
+            await UserController.getUserById(req, res);
 
             expect(res.status.calledOnceWith(404)).to.be.true;
             expect(res.json.calledOnceWithMatch({ message: 'User not Found' })).to.be.true;

@@ -34,6 +34,8 @@ userSchema.pre('save', async function (next) {
 });
 
 module.exports = { 
-    UserModel: mongoose.model('User', userSchema), 
+    UserModel: mongoose.model.User || mongoose.model('User', userSchema), 
     UserRole
 };
+
+module.exports.User = module.exports.UserModel;

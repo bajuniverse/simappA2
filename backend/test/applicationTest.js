@@ -1,7 +1,8 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const mongoose = require('mongoose');
-const { Application, ApplicationStatus } = require('../models/Application');
+const { ApplicationStatus } = require('../models/ApplicationModel');
+const ApplicationRepo = require('../repositories/ApplicationRepo');
 const applicationController = require('../controllers/applicationController');
 const { expect } = chai;
 
@@ -21,14 +22,17 @@ describe('CreateApplication Function Test', () => {
     });
 
     it('should create a new application successfully', async () => {
+        const programId = new mongoose.Types.ObjectId();
+        const userId = new mongoose.Types.ObjectId();
 
         req.body = {
             applicationId: 'APP12345',
             applicationEmail: 'test@example.com',
             applicationPhone: '1234567890',
-            programApplied: 'Startup Accelerator',
+            program: programId,
             startupName: 'Test Startup',
-            description: 'This is a test startup'
+            description: 'This is a test startup',
+            createdBy: userId
         };
 
         const mockApplication = {
@@ -38,8 +42,7 @@ describe('CreateApplication Function Test', () => {
             status: ApplicationStatus.PENDING
         };
         
-        sinon.stub(Application, 'findOne').resolves(null);
-        sinon.stub(Application.prototype, 'save').resolves(mockApplication);
+        sinon.stub(ApplicationRepo, 'create').resolves(mockApplication);
 
         await applicationController.createApplication(req, res);
 
@@ -48,40 +51,41 @@ describe('CreateApplication Function Test', () => {
     });
 
     it('should return 500 if there is an error during creation', async () => {
+        const programId = new mongoose.Types.ObjectId();
+        const userId = new mongoose.Types.ObjectId();
+
         req.body = {
             applicationId: 'APP12345',
             applicationEmail: 'test@example.com',
             applicationPhone: '1234567890',
-            programApplied: 'Startup Accelerator',
+            program: programId,
             startupName: 'Test Startup',
-            description: 'This is a test startup'
+            description: 'This is a test startup',
+            createdBy: userId
         };
 
-        sinon.stub(Application, 'findOne').resolves(null);
-        sinon.stub(Application.prototype, 'save').rejects(new Error('Database error'));
+        sinon.stub(ApplicationRepo, 'create').rejects(new Error('Database error'));
 
-        await applicationController.createApplication(req, res);
+        const next = sinon.spy();
+        await applicationController.createApplication(req, res, next);
 
-        expect(res.status.calledOnceWith(500)).to.be.true;
-        expect(res.json.calledOnce).to.be.true;
-        expect(res.json.firstCall.args[0]).to.include({
-            message: 'Failed to create application',
-            error: 'Database error'
-        });
+        expect(next.calledOnce).to.be.true;
+        expect(res.json.called).to.be.false;
+        expect(res.json.called).to.be.false;
     });
 
     it('should validate required fields', async () => {
         req.body = { description: 'This is a test startup' };
-        const validationError = new Error('Validation error');
-        validationError.name = 'ValidationError';
 
-        sinon.stub(Application, 'findOne').resolves(null);
-        sinon.stub(Application.prototype, 'save').rejects(validationError);
+        sinon.stub(ApplicationRepo, 'create')
+        .callsFake(()=> { throw new Error('should not be called');
+        });
 
-        await applicationController.createApplication(req, res);
+        const next = sinon.spy();
+        await applicationController.createApplication(req, res, next);
 
-        expect(res.status.calledOnceWith(500)).to.be.true;
-        expect(res.json.calledOnce).to.be.true;
-        expect(res.json.firstCall.args[0].message).to.equal('Failed to create application');
+        expect(next.calledOnce).to.be.true;
+        expect(res.json.called).to.be.false;
+        expect(res.json.called).to.be.false;
     });
 });

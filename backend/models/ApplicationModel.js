@@ -28,6 +28,8 @@ const applicationSchema = new mongoose.Schema({
 });
 
 module.exports = {
-    ApplicationModel: mongoose.model("Application", applicationSchema),
+    ApplicationModel: mongoose.models.Application || mongoose.model("Application", applicationSchema),
     ApplicationStatus
 };
+
+module.exports.Application = module.exports.ApplicationModel;

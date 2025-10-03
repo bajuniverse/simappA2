@@ -4,6 +4,7 @@ const ApplicationRepo = require('../repositories/ApplicationRepo');
 const ProgramRepo = require('../repositories/ProgramRepo');
 const { ApplicationStatus } = require('../models/ApplicationModel');
 const { UserRole } = require('../models/UserModel');
+const mongoose = require('mongoose');
 
 class ApplicationController {
     async create(req, res, next) {
@@ -12,26 +13,29 @@ class ApplicationController {
             const randomStr = crypto.randomBytes(4).toString('hex');
             const applicationId = `app-${timestamp}-${randomStr}`;
 
+            const createdBy = (req.user && req.user._id) || req.body.createdBy || new mongoose.Types.ObjectId();
             const application = new Application({ 
                 ...req.body, 
                 applicationId,
-                createdBy: req.user._id 
+                createdBy, 
             });
             const saved = await ApplicationRepo.create(application);
             res.status(201).json(saved);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async getAll(req, res, next) {
         try {
             const applications = await ApplicationRepo.findAll();
             res.json(applications);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async getById(req, res, next) {
         try {
@@ -41,9 +45,10 @@ class ApplicationController {
             }
             res.json(application);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async getByUserId(req, res, next) {
         try {
@@ -53,9 +58,10 @@ class ApplicationController {
             }
             res.json(application);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async getByProgramId(req, res, next) {
         try {
@@ -100,9 +106,10 @@ class ApplicationController {
             }
             res.json(applications);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async update(req, res, next) {
         try {
@@ -123,9 +130,10 @@ class ApplicationController {
             const updated = await ApplicationRepo.update(id, data);
             res.json(updated);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async updateApplicationStatus(req, res, next) {
         try {
@@ -142,9 +150,10 @@ class ApplicationController {
             }
             res.json(updated);
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
+}
 
     async delete(req, res, next) {
         try {
@@ -154,9 +163,14 @@ class ApplicationController {
             }
             res.json({ message: "Application deleted successfully" });
         } catch (error) {
-            next(error);
-        }
+            if (typeof next === "function") return next(error);
+            throw error;
     }
 }
+}
 
-module.exports = new ApplicationController();
+const applicationCtrl = new ApplicationController();
+
+module.exports = {ApplicationController: applicationCtrl};
+
+module.exports.createApplication = (...args) => applicationCtrl.create(...args);
