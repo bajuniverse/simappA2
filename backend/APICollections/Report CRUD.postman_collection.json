@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "b65134bb-d64e-4660-88bd-32623c150ea2",
+		"name": "Report CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48965863",
+		"_collection_link": "https://ifn636a2-api.postman.co/workspace/IFN636_A2-API-Workspace~13211a6a-da4c-4f40-b47c-1f8813c75e96/collection/48966373-b65134bb-d64e-4660-88bd-32623c150ea2?action=share&source=collection_link&creator=48965863"
+	},
+	"item": [
+		{
+			"name": "Create New Report",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {  \"mentorEmail\": \"mentor10@mentor.com\",\r\n    \"submissionDate\": \"2025-10-01\",\r\n    \"phase\": \"Phase 1\",\r\n    \"startupName\": \"Startup One\",\r\n    \"programApplied\": \"aAAAAAAAA1\",\r\n    \"description\": \"ABC\",\r\n    \"remarks\":\"Pending\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/reports/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"reports",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all reports",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/api/reports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update progress status",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/reports/applicationId=app-137973-4d1ba6cc/phaseStatus=Complete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"reports",
+						"applicationId=app-137973-4d1ba6cc",
+						"phaseStatus=Complete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
