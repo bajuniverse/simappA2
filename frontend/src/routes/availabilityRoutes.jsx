@@ -6,8 +6,8 @@ import AvailabilityList from "../pages/Availability/AvailabilityList";
 // import { UserRole } from "../constants/UserRole";
 
 const availabilityRoutes = [
-  <Route key="availability" path="/availability" element={<Availability />} />,
-  <Route key="availability" path="/availability/list" element={<AvailabilityList />} />,
+  <Route key="availability" path="/availability" element={<AvailabilityList />} />,
+  <Route key="availability-new" path="/availability/new" element={<Availability />} />,
 ];
 
 export default availabilityRoutes;

@@ -37,8 +37,8 @@ const Sidebar = ({ activeItem, setActiveItem, isOpen, closeSidebar }) => {
         {
             label: 'Availability',
             children: [
-                { label: 'Availability', path: '/availabilitylist' },
-                { label: 'New Availability', path: '/availabilitylist/new' },
+                { label: 'Availability', path: '/availability' },
+                { label: 'New Availability', path: '/availability/new' },
             ],
         },
         {
@@ -67,13 +67,6 @@ const Sidebar = ({ activeItem, setActiveItem, isOpen, closeSidebar }) => {
             children: [
                 { label: 'All Assignments', path: '/assignment' },
                 { label: 'New Assignment', path: '/assignment/new' },
-            ],
-        },
-        {
-            label: 'Sessions',
-            children: [
-                { label: 'Session List', path: '/sessions' },
-                { label: 'Avaialbility', path: '/availability' },
             ],
         },
         {
