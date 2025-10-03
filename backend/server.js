@@ -28,7 +28,6 @@ app.use('/api/sessions', require('./routes/sessionRoutes'));
 app.use('/api/assignment', require('./routes/assignmentRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 
-// Export the app object for testing
 if (require.main === module) {
 
     Database.connect().then(() => {

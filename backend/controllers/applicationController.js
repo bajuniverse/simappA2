@@ -73,7 +73,6 @@ class ApplicationController {
             }
 
             const roleStrategy = ApplicationFactory.createRoleStrategy(req.user.role);
-
             const statusStrategy = ApplicationFactory.createStatusStrategy(req.query.status);
 
             const applications = await roleStrategy.getApplications(programId, req.user, program, statusStrategy);
@@ -159,13 +158,10 @@ class ApplicationController {
             }
 
             const decorated = new FeedbackDecorator(application);
-            decorated.addFeedback({
-                mentorId: req.user._id,
-                comment,
-                rating
-            });
+            decorated.addFeedback({ mentorId: req.user._id, comment, rating });
 
             const saved = await application.save();
+            
             res.json(saved);
         } catch (error) {
             next(error);

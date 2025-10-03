@@ -7,8 +7,6 @@ class UserStrategy {
     }
 }
 
-/** ---------- ROLE STRATEGIES ---------- **/
-
 // Admin sees all users
 class AdminUserStrategy extends UserStrategy {
     async getUsers(currentUser, statusStrategy) {
@@ -35,8 +33,6 @@ class StartupUserStrategy extends UserStrategy {
         return statusStrategy.filter(users);
     }
 }
-
-/** ---------- STATUS STRATEGIES ---------- **/
 
 class StatusStrategy {
     filter(users) { return users; }
