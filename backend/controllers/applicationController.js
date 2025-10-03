@@ -4,6 +4,7 @@ const ApplicationRepo = require('../repositories/ApplicationRepo');
 const ProgramRepo = require('../repositories/ProgramRepo');
 const { ApplicationStatus } = require('../models/ApplicationModel');
 const ApplicationFactory = require('../domain/factory/ApplicationFactory');
+const { ApplicationDecorator, FeedbackDecorator, AuditDecorator } = require('../domain/decorators/ApplicationDecorator');
 
 class ApplicationController {
     /** Create new application */
