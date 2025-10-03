@@ -26,17 +26,17 @@ class ApplicationFactory {
         }
     }
 
-    static createStatusStrategy(status) {
+static createStatusStrategy(status) {
         switch (status) {
-            case ApplicationStatus.PENDING:
+            case ApplicationStatus.PENDING: 
                 return new PendingStatusStrategy();
-            case ApplicationStatus.UNDER_REVIEW:
+            case ApplicationStatus.UNDER_REVIEW: 
                 return new UnderReviewStatusStrategy();
-            case ApplicationStatus.ACCEPTED:
+            case ApplicationStatus.ACCEPTED: 
                 return new AcceptedStatusStrategy();
-            case ApplicationStatus.REJECTED:
+            case ApplicationStatus.REJECTED: 
                 return new RejectedStatusStrategy();
-            default:
+            default: 
                 return new StatusStrategy();
         }
     }

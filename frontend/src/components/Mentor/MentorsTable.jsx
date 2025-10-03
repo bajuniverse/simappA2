@@ -25,8 +25,8 @@ function MentorsTable({ mentors, onUpdate }) {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {mentors.map((m) => (
-            <tr key={m._id} className="hover:bg-gray-50">
+          {mentors.map((m, idx) => (
+            <tr key={m.id || idx} className="hover:bg-gray-50">
               <td className="px-4 py-2">{`${m.firstName || ''} ${m.lastName || ''}`}</td>
               <td className="px-4 py-2">{m.email}</td>
               <td className="px-4 py-2">{m.expertise || '-'}</td>
@@ -39,7 +39,7 @@ function MentorsTable({ mentors, onUpdate }) {
                   Update
                 </button>
                 <button
-                  onClick={() => handleDelete(m._id)}
+                  onClick={() => handleDelete(m.id)}
                   className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
                 >
                   Delete
