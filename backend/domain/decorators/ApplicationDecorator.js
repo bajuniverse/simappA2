@@ -1,5 +1,3 @@
-// backend/domain/decorators/ApplicationDecorator.js
-
 class ApplicationDecorator {
     constructor(application) {
         if (!application) {
