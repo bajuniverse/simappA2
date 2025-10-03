@@ -213,9 +213,10 @@ const listStartups = async (req, res) => {
 const ctrl = new UserController();
 module.exports = {
     UserController: ctrl, 
+    // UserController, 
     listStartups,
-    getAllUsers : (...args) => ctrl.getAllUsers(...args),
-    getProfile : (...args) => ctrl.getProfile(...args),
-    updateUserProfile : (...args) => ctrl.updateUserProfile(...args),
-    getUserById : (...args) => ctrl.getUserById(...args)    
+    // getAllUsers : (...args) => ctrl.getAllUsers(...args),
+    // getProfile : (...args) => ctrl.getProfile(...args),
+    // updateUserProfile : (...args) => ctrl.updateUserProfile(...args),
+    // getUserById : (...args) => ctrl.getUserById(...args)    
 };
