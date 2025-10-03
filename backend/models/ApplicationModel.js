@@ -22,7 +22,23 @@ const applicationSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(ApplicationStatus),
         default: ApplicationStatus.PENDING
-    }
+    },
+
+    feedbacks: [
+        {
+            mentorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            comment: String,
+            rating: Number,
+            date: { type: Date, default: Date.now }
+        }
+    ],
+    auditLogs: [
+        {
+            action: String,
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            date: { type: Date, default: Date.now }
+        }
+    ],
 }, {
     timestamps: { createdAt: 'createdDateTime', updatedAt: 'updatedDateTime' }
 });
