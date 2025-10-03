@@ -6,6 +6,7 @@ import { UserRole } from '../../constants/UserRole';
 
 const Profile = () => {
     const { user, updateUser } = useAuth();
+    
     const { profileQuery: userProfileQuery, updateProfile: updateUserProfile } = useUserHook();
     const { updateOwnProfile: updateMentorProfile } = useMentorsHook();
 
