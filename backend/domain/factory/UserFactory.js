@@ -14,7 +14,7 @@ class UserFactory {
             case UserRole.MENTOR:
                 return new Mentor({
                     _id: data._id,
-                    id: data.id,
+                    id: data._id?.toString(),
                     name: data.name,
                     email: data.email,
                     password: data.password,
@@ -32,7 +32,7 @@ class UserFactory {
             case UserRole.ADMIN:
                 return new User({
                     _id: data._id,
-                    id: data.id,
+                    id: data._id?.toString(),
                     name: data.name,
                     email: data.email,
                     password: data.password,

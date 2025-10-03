@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMentorsHook } from '../../hooks/mentorHook';
 import MentorsTable from '../../components/Mentor/MentorsTable';
 
@@ -14,7 +14,7 @@ function MentorsList() {
       <div className="flex justify-between items-center mb-6">
         <h2>Mentors</h2>
       </div>
-      <MentorsTable mentors={mentorsQuery.data || []} onUpdate={(m) => navigate(`/mentor/update/${m._id}`)} />
+      <MentorsTable mentors={mentorsQuery.data || []} onUpdate={(m, idx) => navigate(`/mentor/update/${m.id || idx}`)} />
     </div>
   );
 }

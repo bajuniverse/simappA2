@@ -13,7 +13,7 @@ class MentorFactory {
 
         return new Mentor({
             _id: data._id,
-            id: data.id,
+            id: data._id?.toString(),
             name: data.name,
             firstName: data.firstName,
             lastName: data.lastName,
