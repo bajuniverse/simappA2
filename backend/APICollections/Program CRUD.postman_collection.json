@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "61e573f6-3e8a-45b2-8002-9220d48c828f",
+		"name": "Program CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48965863",
+		"_collection_link": "https://ifn636a2-api.postman.co/workspace/IFN636_A2-API-Workspace~13211a6a-da4c-4f40-b47c-1f8813c75e96/collection/5015452-61e573f6-3e8a-45b2-8002-9220d48c828f?action=share&source=collection_link&creator=48965863"
+	},
+	"item": [
+		{
+			"name": "CREATE Program",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Cybersecurity Bootcamp\",\n  \"description\": \"Deep learning training\",\n  \"startDate\": \"2025-11-11\",\n  \"endDate\": \"2025-11-28\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/programs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"programs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Update program details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Into the unknown\",\n    \"description\": \"This is a sample program description\",\n    \"startDate\": \"2025-10-01\",\n    \"endDate\": \"2025-10-13\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/programs/68da9048f117a139c6a76251",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"programs",
+						"68da9048f117a139c6a76251"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Programs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JWT_SECRET}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/programs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"programs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Program By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/programs/68da9048f117a139c6a76251",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"programs",
+						"68da9048f117a139c6a76251"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Program",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGU4Yjg3NmFjNWRkYzhkZTFlNjhjYyIsImlhdCI6MTc1OTQ5MjM0MywiZXhwIjoxNzYyMDg0MzQzfQ.kA_GVgHm6FkxO8nmNEkDgH_AV6NeqZrT_cPg1TxUVws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/api/programs/68dfbeb2772e538000e4c077",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"programs",
+						"68dfbeb2772e538000e4c077"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Applications via Program ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/programs/68dd577287dc4f94559d22df/applications",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"programs",
+						"68dd577287dc4f94559d22df",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

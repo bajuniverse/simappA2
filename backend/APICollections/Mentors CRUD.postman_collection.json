@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "fe9997bf-9c6c-4112-af54-2fc256f58aac",
+		"name": "Mentors CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48965863",
+		"_collection_link": "https://ifn636a2-api.postman.co/workspace/IFN636_A2-API-Workspace~13211a6a-da4c-4f40-b47c-1f8813c75e96/collection/5015452-fe9997bf-9c6c-4112-af54-2fc256f58aac?action=share&source=collection_link&creator=48965863"
+	},
+	"item": [
+		{
+			"name": "asAdmin",
+			"item": [
+				{
+					"name": "GET All Mentors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Mentor by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/68dce24a5414c977a9fccaf8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"68dce24a5414c977a9fccaf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Program to Mentor",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"program_id\": \"68dd29e0f938e3d58da3f465\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/68dd1aff7caa144eb2489119/add-program",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"68dd1aff7caa144eb2489119",
+								"add-program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Remove Program in Mentor",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"program_id\": \"68dd29e0f938e3d58da3f465\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/68dd1aff7caa144eb2489119/remove-program",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"68dd1aff7caa144eb2489119",
+								"remove-program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Mentor by Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/68ddc2923b084fc0f7a62b7a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"68ddc2923b084fc0f7a62b7a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "asMentor",
+			"item": [
+				{
+					"name": "GET All Mentors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mentor_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Mentor Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mentor_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Enrol Program to Mentor",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mentor_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"program_id\": \"68da9048f117a139c6a76251\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/enroll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"enroll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Leave Program by Mentor",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mentor_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"program_id\": \"68da9048f117a139c6a76251\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/leave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"leave"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "asStartup",
+			"item": [
+				{
+					"name": "GET Mentor by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mentor_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/mentor/68dce13e22e1c856c3541047",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"mentor",
+								"68dce13e22e1c856c3541047"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
