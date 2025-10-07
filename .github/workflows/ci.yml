@@ -55,6 +55,8 @@ jobs:
         df -h
         npm install
         sudo rm -rf ./build
+        npm run build
+        npm install -g serve
         serve -s build
 
     # Run backend tests
