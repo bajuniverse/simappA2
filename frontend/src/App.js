@@ -14,24 +14,24 @@ import eventRoutes from "./routes/eventRoutes";
 import profileRoutes from "./routes/profileRoutes";
 
 function App() {
-  return (
-    <Router>
-      <Layout>
-        <Routes>
-          {authRoutes}
-          {programRoutes}
-          {applicationRoutes}
-          {mentorRoutes}
-          {assignmentRoutes}
-          {reportRoutes}
-          {sessionRoutes}
-          {availabilityRoutes}
-          {eventRoutes}
-          {profileRoutes}
-        </Routes>
-      </Layout>
-    </Router>
-  );
+    return (
+        <Router>
+            <Layout>
+                <Routes>
+                    {authRoutes}
+                    {programRoutes}
+                    {applicationRoutes}
+                    {mentorRoutes}
+                    {assignmentRoutes}
+                    {reportRoutes}
+                    {sessionRoutes}
+                    {availabilityRoutes}
+                    {eventRoutes}
+                    {profileRoutes}
+                </Routes>
+            </Layout>
+        </Router>
+    );
 }
 
 export default App;
