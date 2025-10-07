@@ -1,7 +1,10 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const mongoose = require('mongoose');
-const userController = require('../controllers/userController');
+
+// IMPORTANT: import the instance the way it's exported
+const { UserController: userController } = require('../controllers/userController');
+
 const UserRepo = require('../repositories/UserRepo');
 const MentorRepo = require('../repositories/MentorRepo');
 const { UserRole } = require('../models/UserModel');
@@ -13,10 +16,15 @@ describe('UserController Tests', () => {
     let req, res;
 
     beforeEach(() => {
-        req = { body: {}, params: {}, user: {} };
+        req = {
+        body: {},
+        params: {},
+        // provide a default user/role since controller uses role strategy
+        user: { _id: new mongoose.Types.ObjectId(), role: UserRole.ADMIN }
+        };
         res = {
-            status: sinon.stub().returnsThis(),
-            json: sinon.stub()
+        status: sinon.stub().returnsThis(),
+        json: sinon.stub()
         };
     });
 
@@ -26,50 +34,77 @@ describe('UserController Tests', () => {
 
     describe('getAllUsers', () => {
         it('should return all users', async () => {
-            const mockUsers = [
-                { _id: new mongoose.Types.ObjectId(), name: 'Alice', email: 'a@test.com', role: UserRole.ADMIN, toObject() { return this; } },
-                { _id: new mongoose.Types.ObjectId(), name: 'Bob', email: 'b@test.com', role: UserRole.STARTUP, toObject() { return this; } }
-            ];
+        const mockUsers = [
+            { _id: new mongoose.Types.ObjectId(), name: 'Alice', email: 'a@test.com', role: UserRole.ADMIN, toObject() { return this; } },
+            { _id: new mongoose.Types.ObjectId(), name: 'Bob',   email: 'b@test.com', role: UserRole.STARTUP, toObject() { return this; } }
+        ];
 
-            sinon.stub(UserRepo, 'findAll').resolves(mockUsers);
-            sinon.stub(UserFactory, 'createUser').callsFake(u => ({ id: u._id.toString(), ...u }));
+        // Controller uses roleStrategy.getUsers(), not UserRepo.findAll()
+        sinon.stub(UserFactory, 'createRoleStrategy').returns({
+            getUsers: sinon.stub().resolves(mockUsers)
+        });
 
-            await userController.getAllUsers(req, res);
+        // Map DB docs -> domain user shape the controller expects
+        sinon.stub(UserFactory, 'createUser').callsFake(u => ({
+            id: u._id.toString(),
+            name: u.name,
+            email: u.email,
+            role: u.role
+        }));
 
-            expect(res.json.calledOnce).to.be.true;
-            expect(res.json.firstCall.args[0]).to.be.an('array').with.length(2);
+        await userController.getAllUsers(req, res);
+
+        expect(res.json.calledOnce).to.be.true;
+        const payload = res.json.firstCall.args[0];
+        expect(payload).to.be.an('array').with.length(2);
+        expect(payload[0]).to.include.keys('id', 'name', 'email', 'role');
         });
     });
 
     describe('getProfile', () => {
         it('should return user profile for startup user', async () => {
-            req.user = { _id: new mongoose.Types.ObjectId() };
-            const fakeUser = {
-                _id: req.user._id,
-                name: 'Charlie',
-                email: 'c@test.com',
-                role: UserRole.STARTUP,
-                toObject: function () { return this; }
-            };
+        req.user = { _id: new mongoose.Types.ObjectId(), role: UserRole.STARTUP };
 
-            sinon.stub(UserRepo, 'findById').resolves(fakeUser);
-            sinon.stub(UserFactory, 'createUser').returns({ id: fakeUser._id.toString(), name: 'Charlie' });
+        const fakeUser = {
+            _id: req.user._id,
+            name: 'Charlie',
+            email: 'c@test.com',
+            role: UserRole.STARTUP,
+            toObject() { return this; }
+        };
 
-            await userController.getProfile(req, res);
+        sinon.stub(UserRepo, 'findById').resolves(fakeUser);
+        sinon.stub(UserFactory, 'createUser').returns({
+            id: fakeUser._id.toString(),
+            name: 'Charlie',
+            email: 'c@test.com',
+            role: UserRole.STARTUP
+        });
 
-            expect(res.json.calledOnceWithMatch({ id: fakeUser._id.toString(), name: 'Charlie' })).to.be.true;
+        await userController.getProfile(req, res);
+
+        expect(res.json.calledOnce).to.be.true;
+        expect(res.json.firstCall.args[0]).to.include({
+            id: fakeUser._id.toString(),
+            name: 'Charlie'
+        });
         });
     });
 
     describe('getUserById', () => {
-        it('should return 404 if user not found', async () => {
-            req.params.id = new mongoose.Types.ObjectId().toString();
-            sinon.stub(UserRepo, 'findById').resolves(null);
+        it('should return 403 if user not found or access denied (per role strategy)', async () => {
+        req.params.id = new mongoose.Types.ObjectId().toString();
 
-            await userController.getUserById(req, res);
+        // Controller looks up through roleStrategy.getUsers() and then finds by id
+        sinon.stub(UserFactory, 'createRoleStrategy').returns({
+            getUsers: sinon.stub().resolves([]) // no users visible -> not found/denied
+        });
 
-            expect(res.status.calledOnceWith(404)).to.be.true;
-            expect(res.json.calledOnceWithMatch({ message: 'User not Found' })).to.be.true;
+        await userController.getUserById(req, res);
+
+        expect(res.status.calledOnceWith(403)).to.be.true;
+        expect(res.json.calledOnce).to.be.true;
+        expect(res.json.firstCall.args[0]).to.have.property('message', 'Access denied or user not found');
         });
     });
 });

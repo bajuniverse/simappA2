@@ -34,7 +34,7 @@ jobs:
         echo "Secret 3 is: $PORT"
       
     - name: Stop all PM2 processes
-      run: pm2 stop backend || true
+      run: pm2 stop || true
 
     # Install dependencies for backend
     - name: Install Backend Dependencies
@@ -58,9 +58,9 @@ jobs:
         CI=false npm run build
 
     # Run backend tests
-    # - name: Run Backend Tests
-    #   working-directory: ./backend
-    #   run: npm test
+    - name: Run Backend Tests
+      working-directory: ./backend
+      run: npm test
 
     - name: Show PM2 process list
       run: pm2 list || true
