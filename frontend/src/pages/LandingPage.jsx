@@ -27,9 +27,17 @@ const LandingPage = () => {
                     <a href="#how-it-works" className="text-gray-600 hover:text-blue-600 transition">How It Works</a>
                     <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition">Testimonials</a>
                     <a href="#pricing" className="text-gray-600 hover:text-blue-600 transition">Pricing</a>
-                    <button className="text-gray-600 hover:text-blue-600 transition">Sign In</button>
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Get Started
+                    <button 
+                        className="text-gray-600 hover:text-blue-600 transition"
+                        onClick={() => navigate("/register")}
+                    >
+                        Sign In
+                    </button>
+                    <button 
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+                        onClick={() => navigate("/register")}
+                    >
+                        Get Started
                     </button>
                 </div>
 

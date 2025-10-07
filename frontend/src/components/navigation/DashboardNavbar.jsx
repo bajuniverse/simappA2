@@ -2,10 +2,16 @@ import React from 'react';
 import { Navbar, Container, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 const DashboardNavbar = ({ toggleSidebar }) => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+
+    const location = useLocation();
+    const isLogin = location.pathname === "/login";
+    const isRegister = location.pathname === "/register";
+
 
     const handleLogout = () => {
         logout();
@@ -59,17 +65,28 @@ const DashboardNavbar = ({ toggleSidebar }) => {
                 ) : (
                     <div className="ms-auto d-flex">
                         <Link 
-                            to="/login" 
+                            to="/" 
                             className="nav-link text-white px-4 py-2"
                         >
-                            Login
+                            Home
                         </Link>
-                        <Link
-                            to="/register"
-                            className="bg-green-500 px-4 py-2 mx-2 rounded hover:bg-green-700 text-white text-decoration-none"
-                        >
-                            Register
-                        </Link>
+                        {!isLogin && (
+                            <Link 
+                                to="/login" 
+                                className="bg-green-500 px-4 py-2 mx-2 rounded hover:bg-green-700 text-white text-decoration-none"
+                            >
+                                Login
+                            </Link>
+                        )}
+
+                        {!isRegister && (
+                            <Link
+                                to="/register"
+                                className="bg-green-500 px-4 py-2 mx-2 rounded hover:bg-green-700 text-white text-decoration-none"
+                            >
+                                Register
+                            </Link>
+                        )}
                     </div>
                 )}
             </Container>

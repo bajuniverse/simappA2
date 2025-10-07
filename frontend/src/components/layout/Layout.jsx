@@ -3,12 +3,16 @@ import { Container } from 'react-bootstrap';
 import DashboardNavbar from '../navigation/DashboardNavbar';
 import Sidebar from '../navigation/Sidebar';
 import { useAuth } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 import '../../styles/layout.css';
 
 // Layout Component
 const Layout = ({ children }) => {
     const { user } = useAuth();
+
+    const location = useLocation();
+    const isLandingPage = location.pathname === "/";
 
     const [activeItem, setActiveItem] = useState('Dashboard');
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +28,10 @@ const Layout = ({ children }) => {
     return (
         <>
             <div style={{ minHeight: '100vh' }}>
-                <DashboardNavbar toggleSidebar={toggleSidebar} />
+                {!isLandingPage && (
+                    <DashboardNavbar toggleSidebar={toggleSidebar} />
+                )}
+
                 <Container fluid>
                     {user ? (
                         <div className="row">
