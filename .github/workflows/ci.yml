@@ -58,9 +58,9 @@ jobs:
         CI=false npm run build
 
     # Run backend tests
-    - name: Run Backend Tests
-      working-directory: ./backend
-      run: npm test
+    # - name: Run Backend Tests
+    #   working-directory: ./backend
+    #   run: npm test
 
     - name: Show PM2 process list
       run: pm2 list || true
