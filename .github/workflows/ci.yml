@@ -56,8 +56,6 @@ jobs:
         npm install
         sudo rm -rf ./build
         CI=false npm run build
-        npm install -g serve
-        serve -s build
 
     # Run backend tests
     - name: Run Backend Tests
