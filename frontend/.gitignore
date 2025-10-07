@@ -11,6 +11,9 @@
 # production
 /build
 
+# axios-file
+/src/services/axiosConfig.jsx
+
 # misc
 .DS_Store
 .env.local
