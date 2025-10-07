@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
     Rocket, Users, TrendingUp, Award, MessageCircle, Calendar,
     CheckCircle, ArrowRight, Menu, X, Star, Zap, Target,
-    BookOpen, BarChart3, Shield, ChevronDown, ExternalLink
+    BookOpen, BarChart3, Shield
 } from 'lucide-react';
 
 const LandingPage = () => {
     const navigate = useNavigate();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [activeTestimonial, setActiveTestimonial] = useState(0);
 
 
     // Navigation Component
