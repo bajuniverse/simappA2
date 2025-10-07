@@ -12,7 +12,7 @@
 /build
 
 # axios-file
-/src/services/axiosConfig.jsx
+# /src/services/axiosConfig.jsx
 
 # misc
 .DS_Store
