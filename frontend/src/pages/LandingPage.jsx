@@ -89,7 +89,10 @@ const LandingPage = () => {
                     Connect with expert mentors, access world-class programs, and join a thriving community of entrepreneurs ready to disrupt industries.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                    <button className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center group">
+                    <button 
+                        className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center group"
+                        onClick={() => navigate("/login")}
+                    >
                         Start Your Journey
                         <ArrowRight className="ml-2 group-hover:translate-x-1 transition" size={20} />
                     </button>
