@@ -1,5 +1,5 @@
 name: Startup Incubation App CI
-true:
+on:
   push:
     branches:
     - main
