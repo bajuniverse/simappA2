@@ -47,10 +47,6 @@ jobs:
       run: | 
         touch .env
         echo "${{ secrets.PROD }}" > .env
-    
-    # Monitor System Resources
-    - name: Monitor System Resources
-      run: free -h && df -h && top -bn1 | head -20
 
     # Install dependencies for frontend
     - name: Install Frontend Dependencies
