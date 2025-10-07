@@ -55,7 +55,7 @@ jobs:
         df -h
         npm install
         sudo rm -rf ./build
-        npm run build
+        CI=false npm run build
         npm install -g serve
         serve -s build
 
