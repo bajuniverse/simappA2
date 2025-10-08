@@ -12,12 +12,14 @@ import sessionRoutes from "./routes/sessionRoutes";
 import availabilityRoutes from "./routes/availabilityRoutes";
 import eventRoutes from "./routes/eventRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import landingRoutes from "./routes/landingRoutes";
 
 function App() {
     return (
         <Router>
             <Layout>
                 <Routes>
+                    {landingRoutes}
                     {authRoutes}
                     {programRoutes}
                     {applicationRoutes}

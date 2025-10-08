@@ -19,6 +19,7 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "joi": "^18.0.1",
+    "react-avatar": "^5.0.4",
     "react-bootstrap": "^2.10.10",
     "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-scripts": "^5.0.1"
