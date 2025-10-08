@@ -60,12 +60,12 @@ export function useProgramsHook() {
   });
 
   // Applications
-  const useProgramApplications = (programId) =>
+  const useProgramApplications = (program_id) =>
     useQuery({
-      queryKey: ['programApplications', programId],
+      queryKey: ['programApplications', program_id],
       queryFn: async () => {
         try {
-          return await api.getProgramApplications(programId);
+          return await api.getProgramApplications(program_id);
         } catch (error) {
           if (error.response?.status === 404) {
             return [];
@@ -73,13 +73,13 @@ export function useProgramsHook() {
           throw error;
         }
       },
-      enabled: !!programId,
+      enabled: !!program_id,
     });
 
     const acceptApplication = useMutation({
         mutationFn: api.acceptApplication,
-        onSuccess: (_d, { programId }) => {
-        qc.invalidateQueries(['programApplications', programId]);
+        onSuccess: (_d, { program_id }) => {
+        qc.invalidateQueries(['programApplications', program_id]);
     },
   });
 

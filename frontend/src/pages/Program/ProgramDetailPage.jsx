@@ -4,10 +4,13 @@ import { useProgramsHook } from "../../hooks/programHook";
 import ProgramInfo from "../../components/Program/ProgramInfo";
 import ProgramApplications from "../../components/Program/ProgramApplications";
 import ProgramMentors from "../../components/Program/ProgramMentors";
+import { useMentorsHook } from "../../hooks/mentorHook";
+
 
 const ProgramDetailPage = () => {
     const { id } = useParams();
     const { useProgram } = useProgramsHook();
+    const { mentorsQuery } = useMentorsHook();
 
     const { data: program, isLoading, isError } = useProgram(id);
 
@@ -21,10 +24,15 @@ const ProgramDetailPage = () => {
         <ProgramInfo program={program} />
 
         {/* Mentors for this program */}
-        <ProgramMentors programId={id} mentors={program.mentors || []} />
+        <ProgramMentors program_id={id} mentors={program.mentors || []} />
+
+        <p>
+            {program.ProgramMentors}
+        </p>
+            
 
         {/* Applications under this program */}
-        <ProgramApplications programId={id} />
+        <ProgramApplications program_id={id} />
         </div>
     );
 };

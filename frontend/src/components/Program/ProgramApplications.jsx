@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useProgramsHook } from "../../hooks/programHook";
 import { useAuth } from "../../context/AuthContext";
 
-const ProgramApplications = ({ programId }) => {
+const ProgramApplications = ({ program_id }) => {
     const { user } = useAuth();
     const { useProgramApplications, acceptApplication } = useProgramsHook();
-    const { data: applications, isLoading } = useProgramApplications(programId);
+    const { data: applications, isLoading } = useProgramApplications(program_id);
     const navigate = useNavigate();
 
     const [statusFilter, setStatusFilter] = useState("All");
@@ -14,7 +14,7 @@ const ProgramApplications = ({ programId }) => {
     if (isLoading) return <p>Loading applications...</p>;
 
     const handleStatusChange = (appId, status) => {
-        acceptApplication.mutate({ applicationId: appId, programId, status });
+        acceptApplication.mutate({ applicationId: appId, program_id, status });
     };
 
     const normalize = Array.isArray(applications) ? applications : [];

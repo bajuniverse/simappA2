@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useProgramsHook } from "../../hooks/programHook";
 import { useMentorsHook } from "../../hooks/mentorHook";
 
-const ProgramMentors = ({ programId, mentors }) => {
+const ProgramMentors = ({ program_id, mentors }) => {
     const { user } = useAuth();
     const {
         enrollAsMentor,
@@ -20,13 +20,13 @@ const ProgramMentors = ({ programId, mentors }) => {
         <div className="bg-white shadow p-4 rounded">
             <div className="flex gap-2">
             <button
-                onClick={() => enrollAsMentor.mutate(programId)}
+                onClick={() => enrollAsMentor.mutate(program_id)}
                 className="px-6 py-2 bg-blue-500 text-white rounded"
             >
                 Apply as Mentor
             </button>
             <button
-                onClick={() => leaveProgram.mutate(programId)}
+                onClick={() => leaveProgram.mutate(program_id)}
                 className="px-6 py-2 bg-red-500 text-white rounded"
             >
                 Leave Program
@@ -47,20 +47,20 @@ const ProgramMentors = ({ programId, mentors }) => {
                 onChange={(e) => setSelectedMentor(e.target.value)}
                 className="p-2 border rounded"
             >
-                <option value="">-- Select Mentor --</option>
+                <option value="">Select Mentor</option>
                 {mentorsQuery?.data?.map((m, idx) => (
-                <option key={m.id || idx} value={m.id || idx}>
-                    {m.firstName} {m.lastName}
-                </option>
+                    <option key={m.id || idx} value={m.id || idx}>
+                        {m.firstName} {m.lastName}
+                    </option>
                 ))}
             </select>
             <button
                 onClick={() =>
-                addProgramToMentor.mutate({ mentorId: selectedMentor, programId })
+                    addProgramToMentor.mutate({ mentorId: selectedMentor, program_id })
                 }
                 className="px-3 py-1 bg-blue-600 text-white rounded"
             >
-                Add
+                Add {program_id}
             </button>
             </div>
 
@@ -76,7 +76,7 @@ const ProgramMentors = ({ programId, mentors }) => {
                     </span>
                     <button
                     onClick={() =>
-                        removeProgramFromMentor.mutate({ mentorId: m.id, programId })
+                        removeProgramFromMentor.mutate({ mentorId: m.id, program_id })
                     }
                     className="px-3 py-1 bg-red-500 text-white rounded text-sm"
                     >
