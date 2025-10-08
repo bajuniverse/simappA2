@@ -17,6 +17,10 @@ class MentorRepo {
         return MentorModel.findById(id).select('+password').populate('programs');
     }
 
+    async findByProgramId(program_id) {
+        return await MentorModel.find({ programs: program_id }).populate('programs');
+    }
+
     async updateById(id, updates) {
         return MentorModel.findByIdAndUpdate(id, updates, {
             new: true,

@@ -7,33 +7,6 @@ class UserStrategy {
     }
 }
 
-// Admin sees all users
-class AdminUserStrategy extends UserStrategy {
-    async getUsers(currentUser, statusStrategy) {
-        let users = await UserRepo.findAll();
-        return statusStrategy.filter(users);
-    }
-}
-
-// Mentor sees only their own profile (+ mentor details)
-class MentorUserStrategy extends UserStrategy {
-    async getUsers(currentUser, statusStrategy) {
-        const user = await UserRepo.findById(currentUser._id);
-        const mentor = await MentorRepo.findById(currentUser._id);
-        let users = [{ ...user.toObject(), ...mentor?.toObject() }];
-        return statusStrategy.filter(users);
-    }
-}
-
-// Startup sees only their own account
-class StartupUserStrategy extends UserStrategy {
-    async getUsers(currentUser, statusStrategy) {
-        const user = await UserRepo.findById(currentUser._id);
-        let users = [user];
-        return statusStrategy.filter(users);
-    }
-}
-
 class StatusStrategy {
     filter(users) { return users; }
 }
@@ -48,6 +21,36 @@ class InactiveStatusStrategy extends StatusStrategy {
 
 class SuspendedStatusStrategy extends StatusStrategy {
     filter(users) { return users.filter(u => u.status === "Suspended"); }
+}
+
+// Admin sees all users
+class AdminUserStrategy extends UserStrategy {
+    async getUsers(currentUser, statusStrategy) {
+        let users = await UserRepo.findAll();
+        // return statusStrategy.filter(users);
+        return users;
+    }
+}
+
+// Mentor sees only their own profile (+ mentor details)
+class MentorUserStrategy extends UserStrategy {
+    async getUsers(currentUser, statusStrategy) {
+        const user = await UserRepo.findById(currentUser._id);
+        const mentor = await MentorRepo.findById(currentUser._id);
+        let users = [{ ...user.toObject(), ...mentor?.toObject() }];
+        // return statusStrategy.filter(users);
+        return users;
+    }
+}
+
+// Startup sees only their own account
+class StartupUserStrategy extends UserStrategy {
+    async getUsers(currentUser, statusStrategy) {
+        const user = await UserRepo.findById(currentUser._id);
+        let users = [user];
+        // return statusStrategy.filter(users);
+        return users;
+    }
 }
 
 module.exports = {
