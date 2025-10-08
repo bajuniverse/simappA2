@@ -40,54 +40,69 @@ const ProgramMentors = ({ program_id, mentors }) => {
     if (user?.role === "Admin") {
         return (
         <div className="bg-white shadow p-4 rounded">
-            <h3 className="font-bold mb-3">Assigned Mentors</h3>
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-lg">Assigned Mentors</h3>
+            </div>
             <div className="flex gap-2 mb-3">
-            <select
-                value={selectedMentor}
-                onChange={(e) => setSelectedMentor(e.target.value)}
-                className="p-2 border rounded"
-            >
-                <option value="">Select Mentor</option>
-                {mentorsQuery?.data?.map((m, idx) => (
-                    <option key={m.id || idx} value={m.id || idx}>
-                        {m.firstName} {m.lastName}
-                    </option>
-                ))}
-            </select>
-            <button
-                onClick={() =>
-                    addProgramToMentor.mutate({ mentorId: selectedMentor, program_id })
-                }
-                className="px-3 py-1 bg-blue-600 text-white rounded"
-            >
-                Add {program_id}
-            </button>
+                <select
+                    value={selectedMentor}
+                    onChange={(e) => setSelectedMentor(e.target.value)}
+                    className="p-2 border rounded"
+                >
+                    <option value="">Select Mentor</option>
+                    {mentorsQuery?.data?.map((m, idx) => (
+                        <option key={m.id || idx} value={m.id || idx}>
+                            {m.firstName} {m.lastName}
+                        </option>
+                    ))}
+                </select>
+                <button
+                    onClick={() =>
+                        addProgramToMentor.mutate({ mentorId: selectedMentor, program_id })
+                    }
+                    className="px-3 py-1 bg-blue-600 text-white rounded"
+                >
+                    Add
+                </button>
             </div>
 
-            <ul className="divide-y">
-            {mentors?.length ? (
-                mentors.map((m, idx) => (
-                <li
-                    key={m.id || idx}
-                    className="flex justify-between items-center py-2"
-                >
-                    <span>
-                    {m.firstName} {m.lastName}
-                    </span>
-                    <button
-                    onClick={() =>
-                        removeProgramFromMentor.mutate({ mentorId: m.id, program_id })
-                    }
-                    className="px-3 py-1 bg-red-500 text-white rounded text-sm"
-                    >
-                    Remove
-                    </button>
-                </li>
-                ))
-            ) : (
-                <p className="text-gray-500">No mentors assigned yet.</p>
-            )}
-            </ul>
+            <div className="overflow-x-auto">
+                <table className="min-w-full table-auto">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="px-4 py-2 text-left">Mentor</th>
+                            <th className="px-4 py-2 text-left">Expertise</th>
+                            <th className="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                        {mentors?.length ? (
+                            mentors.map((m) => (
+                                 <tr key={m._id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2">{m.firstName} {m.lastName}</td>
+                                    <td className="px-4 py-2">
+                                        {m.expertise}
+                                    </td>
+                                    <td className="px-4 py-2">
+                                        <button
+                                            onClick={() =>
+                                                removeProgramFromMentor.mutate({ mentorId: m._id, program_id })
+                                            }
+                                            className="px-3 py-1 bg-red-500 text-white rounded text-sm"
+                                            >
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <td colSpan="3" className="text-center py-4 text-gray-500">
+                                No mentors found.
+                            </td>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
         );
     }

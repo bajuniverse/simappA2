@@ -24,5 +24,6 @@ router.put('/:id', protect, roleProxy(UserRole.ADMIN), MentorController.updateMe
 router.delete('/:id', protect, roleProxy(UserRole.ADMIN), MentorController.deleteMentor);
 router.post('/:id/add-program', protect, roleProxy(UserRole.ADMIN), MentorController.addProgram);
 router.post('/:id/remove-program', protect, roleProxy(UserRole.ADMIN), MentorController.removeProgram);
+router.get('/program/:program_id', protect, roleProxy(UserRole.ADMIN), MentorController.getAllMentorsByProgramId);
 
 module.exports = router;

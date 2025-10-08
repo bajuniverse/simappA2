@@ -21,7 +21,7 @@ const ProgramApplications = ({ program_id }) => {
     const filtered = statusFilter === "All" ? normalize : normalize?.filter((app) => app.status === statusFilter);
 
     return (
-        <div className="">
+        <div className="bg-white shadow p-4 rounded">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-lg">Startup Applications</h3>
                 <select

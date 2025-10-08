@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useProgramsHook } from "../../hooks/programHook";
-import { useMentorsHook } from "../../hooks/mentorHook";
 import { useState } from "react";
 import { UserRole } from "../../constants/UserRole";
 
@@ -16,7 +15,6 @@ const ProgramDetail = () => {
         useProgramApplications,
         acceptApplication,
     } = useProgramsHook();
-    const { mentorsQuery } = useMentorsHook();
 
     const { data: program, isLoading } = useProgram(id);
     const { data: applications } = useProgramApplications(id);

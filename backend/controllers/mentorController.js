@@ -27,6 +27,23 @@ class MentorController {
         }
     } 
 
+    async getAllMentorsByProgramId(req, res, next) {
+        try {
+            const { program_id } = req.params;
+
+            if (!program_id) return res.status(400).json({ message: "Program ID is required"});
+
+            const mentors = await MentorRepo.findByProgramId(program_id);
+            if (!mentors || mentors.lengt === 0) {
+                return res.status(404).json({ message: "No mentors found for this program"});
+            }
+            const domainMentors = mentors.map((m) => m.toObject());
+            res.json(domainMentors);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async getProfile(req, res, next) {
         try {
             if (!req.user) return res.status(401).json({ message: 'Not authorized' });

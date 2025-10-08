@@ -24,7 +24,11 @@ export function useMentorsHook() {
         onSuccess: () => qc.invalidateQueries(['mentors']),
     });
 
-    return { mentorsQuery, updateMentor, deleteMentor };
+    return { 
+        mentorsQuery, 
+        updateMentor, 
+        deleteMentor 
+    };
 }
 
 export function useMentor(id) {
@@ -34,4 +38,13 @@ export function useMentor(id) {
         queryFn: () => api.getById(id),
         enabled: !!id,
     });
+}
+
+export function useMentorsByProgram(program_id) {
+  const api = useMentorApi();
+  return useQuery({
+    queryKey: ['mentorsByProgram', program_id],
+    queryFn: () => api.getAllByProgramId(program_id),
+    enabled: !!program_id,
+  });
 }
