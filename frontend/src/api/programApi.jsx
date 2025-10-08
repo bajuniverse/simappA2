@@ -38,11 +38,19 @@ export function useProgramApi() {
         return res.data;
     };
 
+  const leaveProgram = async (programId) => {
+    const res = await axiosInstance.post(`/api/mentor/leave`, { program_id: programId }, { headers: getAuthHeaders() });
+    return res.data;
+  };
     const leaveProgram = async (program_id) => {
         const res = await axiosInstance.post(`/api/mentor/leave`, { program_id }, { headers: getAuthHeaders() });
         return res.data;
     };
 
+  const addProgramToMentor = async ({ mentorId, programId }) => {
+    const res = await axiosInstance.post(`/api/mentor/${mentorId}/add-program`, { program_id: programId }, { headers: getAuthHeaders() });
+    return res.data;
+  };
     const addProgramToMentor = async ({ mentorId, program_id }) => {
         const res = await axiosInstance.post(`/api/mentor/${mentorId}/add-program`, { program_id }, { headers: getAuthHeaders() });
         return res.data;
